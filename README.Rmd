@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The `autobahn` package provides an R interface to the 
-[Autobahn API](https://autobahn.api.bund.dev/). 
+[Autobahn App API](https://autobahn.api.bund.dev/). 
 
 ## Installation
 

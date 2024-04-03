@@ -7,5 +7,6 @@
 #' @importFrom httr2 req_user_agent
 #' @importFrom httr2 request
 #' @importFrom httr2 resp_body_json
+#' @importFrom stats setNames
 ## usethis namespace: end
 NULL

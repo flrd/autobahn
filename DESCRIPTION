@@ -11,7 +11,8 @@ Description: An R client for Autobahn App API, <https://autobahn.api.bund.dev/>.
 Depends:
     R (>= 4.1.0)
 Imports:
-    httr2
+    httr2 (>= 1.0.0),
+    stats
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

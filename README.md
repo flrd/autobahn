@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The `autobahn` package provides an R interface to the [Autobahn
+The `autobahn` package provides an R interface to the [Autobahn App
 API](https://autobahn.api.bund.dev/).
 
 ## Installation
