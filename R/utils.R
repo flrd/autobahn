@@ -15,7 +15,7 @@ library(httr2)
 resources <-
   c(
     "roadworks",
-    # "webcam", # not supported anymore as of April 2024
+    # "webcam", # not supported as of April 2024
     "parking_lorry",
     "warning",
     "closure",
@@ -23,10 +23,6 @@ resources <-
   )
 
 # helpers creating a function for each resource ---------------------------
-
-strsplit1 <- function(x, split) {
-  strsplit(x, split = split)[[1]]
-}
 
 extract <- `[[`
 
@@ -37,7 +33,7 @@ road_id <- function(roadId = NULL) {
     roadId <- toupper(roadId)
   }
   if(is.null(roadId) || !(roadId %in% choices)) {
-    stop("Invalid 'roadId', call `autobahnen()` for possible values.",
+    stop("Missing or invalid 'roadId', call `autobahnen()` for possible values.",
          call. = FALSE)
   }
   match.arg(arg = roadId,
@@ -45,6 +41,8 @@ road_id <- function(roadId = NULL) {
             several.ok = FALSE)
 }
 
+
+# workhorse ---------------------------------------------------------------
 
 autobahn <- function(resource, roadId = NULL) {
 
@@ -64,13 +62,18 @@ autobahn <- function(resource, roadId = NULL) {
     extract(resource)
 }
 
-# function factory to call various endpoints
+
+# function factory to create autobahn_{resouce} functions -----------------
+
 getter <- function(endpoint) {
   function(roadId = NULL) {
     roadId <- road_id(roadId = roadId)
     autobahn(endpoint, roadId = roadId)
   }
 }
+
+
+# helpers to tidy output --------------------------------------------------
 
 geometryCoordinates <- function(x) {
   idx <- c("geometry", "coordinates")
@@ -82,7 +85,7 @@ geometryCoordinates <- function(x) {
 
 description <- function(x) {
   tmp <- x[["description"]]
-  x[["description"]] <- paste0(tmp[nzchar(tmp)], collapse = "/n")
+  x[["description"]] <- paste0(tmp[nzchar(tmp)], collapse = "\n")
   x
 }
 
@@ -101,9 +104,9 @@ coordinate <- function(x) {
 parkingSpaces <- function(x) {
   tmp <- x[["description"]]
   x[["description"]] <- unlist(tmp) |>
-    strsplit(x = _, split = " Stellplätze: ") |>
+    strsplit(x = _, split = " Stellpl\u00E4tze: ", useBytes = TRUE) |>
     do.call(rbind.data.frame, args = _) |>
-    setNames(nm = c("vehicleType", "parkingLots"))
+    setNames(nm = c("Fahrzeugtyp", "Stellpl\u00E4tze"))
   x
 }
 
@@ -112,5 +115,3 @@ lorryParkingFeatureIcons <- function(x) {
   x[[tmp]] <- do.call(rbind.data.frame, x[[tmp]])
   x
 }
-
-

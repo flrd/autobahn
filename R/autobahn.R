@@ -27,9 +27,9 @@ autobahnen <- function() {
     unique()
 }
 
-#' Get list of all current construction sites.
+#' Get list of construction sites for a given autobahn
 #'
-#' @param roadId A character vector. Identifier of a motorway.
+#' @param roadId A character vector. Identifier of a autobahn.
 #'
 #' @return A list.
 #' @export
@@ -47,9 +47,9 @@ autobahn_roadworks <- function(roadId = NULL) {
   json
 }
 
-#' Get list of all parking lorries.
+#' Get list of parking lorries for a given autobahn
 #'
-#' @param roadId A character vector. Identifier of a motorway.
+#' @param roadId A character vector. Identifier of a autobahn.
 #'
 #' @return A list.
 #' @export
@@ -63,5 +63,46 @@ autobahn_parking_lorry <- function(roadId = NULL) {
   json[] <- lapply(json, parkingSpaces)
   json[] <- lapply(json, lorryParkingFeatureIcons)
   json[] <- lapply(json, coordinate)
+  json
+}
+
+#' Get list of warnings for a given autobahn
+#'
+#' @param roadId A character vector. Identifier of a autobahn.
+#'
+#' @return A list.
+#' @export
+#'
+#' @examples
+#' A1 <- autobahn_warning("A1")
+
+autobahn_warning <- function(roadId = NULL) {
+
+  json <- autobahn("warning", roadId = roadId)
+  json[] <- lapply(json, geometryCoordinates)
+  json[] <- lapply(json, description)
+  json[] <- lapply(json, lorryParkingFeatureIcons)
+  json[] <- lapply(json, coordinate)
+  json
+}
+
+#' Get list of closures for a given autobahn
+#'
+#' @param roadId A character vector. Identifier of a autobahn.
+#'
+#' @return A list.
+#' @export
+#'
+#' @examples
+#' A1 <- autobahn_closure("A1")
+
+autobahn_closure <- function(roadId = NULL) {
+
+  json <- autobahn("closure", roadId = roadId)
+  json[] <- lapply(json, geometryCoordinates)
+  json[] <- lapply(json, description)
+  json[] <- lapply(json, lorryParkingFeatureIcons)
+  json[] <- lapply(json, coordinate)
+  json[] <- lapply(json, impactSymbols)
   json
 }
