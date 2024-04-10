@@ -2,19 +2,23 @@
 % Please edit documentation in R/autobahn.R
 \name{autobahn_parking_lorry}
 \alias{autobahn_parking_lorry}
-\title{Get list of parking lorries for a given autobahn}
+\title{Get list of rest areas for a given autobahn}
 \usage{
-autobahn_parking_lorry(roadId = NULL)
+autobahn_parking_lorry(roadId = NULL, return = c("as-is", "simplified"))
 }
 \arguments{
-\item{roadId}{A character vector. Identifier of a autobahn.}
+\item{roadId}{A character string. Identifier of a autobahn.}
+
+\item{return}{Should function return result as is, or simplify the
+response? Defaults to \code{as-is}.}
 }
 \value{
 A list.
 }
 \description{
-Get list of parking lorries for a given autobahn
+Get list of rest areas for a given autobahn
 }
 \examples{
-A1 <- autobahn_parking_lorry("A1")
+A2 <- autobahn_parking_lorry("A2")
+A2 <- autobahn_parking_lorry("A2", return = "simplified")
 }

@@ -13,13 +13,13 @@ A character vector.
 Get list of all autobahns in Germany
 }
 \details{
-The function returns a vector of all autbahns in Germany. Under the hood it
-calls \url{https://verkehr.autobahn.de/o/autobahn/}.
-For more information on the endpoint see:
+The function calls
+\url{https://verkehr.autobahn.de/o/autobahn/}
+and returns a vector of all autobahns in Germany, see:
 \url{https://autobahn.api.bund.dev/}.
 
-More information on Germany's autobahns can be found here:
-\href{https://en.wikipedia.org/wiki/List_of_autobahns_in_Germany}{en.wikipedia.org/wiki/List_of_autobahns_in_Germany}
+More information on Germany's autobahns can be found on
+\href{https://en.wikipedia.org/wiki/List_of_autobahns_in_Germany}{wikipedia.org}
 }
 \examples{
 autobahnen()

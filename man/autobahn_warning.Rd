@@ -4,10 +4,13 @@
 \alias{autobahn_warning}
 \title{Get list of warnings for a given autobahn}
 \usage{
-autobahn_warning(roadId = NULL)
+autobahn_warning(roadId = NULL, return = c("as-is", "simplified"))
 }
 \arguments{
-\item{roadId}{A character vector. Identifier of a autobahn.}
+\item{roadId}{A character string. Identifier of a autobahn.}
+
+\item{return}{Should function return result as is, or simplify the
+response? Defaults to \code{as-is}.}
 }
 \value{
 A list.
@@ -16,5 +19,6 @@ A list.
 Get list of warnings for a given autobahn
 }
 \examples{
-A1 <- autobahn_warning("A1")
+A3 <- autobahn_warning("A3")
+A3 <- autobahn_warning("A3", return = "simplified")
 }

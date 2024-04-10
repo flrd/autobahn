@@ -4,10 +4,13 @@
 \alias{autobahn_closure}
 \title{Get list of closures for a given autobahn}
 \usage{
-autobahn_closure(roadId = NULL)
+autobahn_closure(roadId = NULL, return = c("as-is", "simplified"))
 }
 \arguments{
-\item{roadId}{A character vector. Identifier of a autobahn.}
+\item{roadId}{A character string. Identifier of a autobahn.}
+
+\item{return}{Should function return result as is, or simplify the
+response? Defaults to \code{as-is}.}
 }
 \value{
 A list.
@@ -16,5 +19,6 @@ A list.
 Get list of closures for a given autobahn
 }
 \examples{
-A1 <- autobahn_closure("A1")
+A4 <- autobahn_closure("A4")
+A4 <- autobahn_closure("A4", return = "simplified")
 }

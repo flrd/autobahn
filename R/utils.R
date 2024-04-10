@@ -115,3 +115,31 @@ lorryParkingFeatureIcons <- function(x) {
   x[[tmp]] <- do.call(rbind.data.frame, x[[tmp]])
   x
 }
+
+ladestationDescription <- function(x) {
+  tmp1 <- "description"
+  tmp2 <- "charging_stations"
+
+  # adds "charging_stations" to output
+  x[[tmp2]] <- x[[tmp1]][seq(4, length(x[[tmp1]]))]
+  x[[tmp2]] <- unlist(x[[tmp2]])
+  # remove empty strings
+  x[[tmp2]] <- x[[tmp2]][nzchar(x[[tmp2]])]
+  # get vector in shape of 3 columns matrix
+  x[[tmp2]] <- matrix(data = x[[tmp2]], ncol = 3, byrow = TRUE)
+  # remove first column
+  x[[tmp2]] <- x[[tmp2]][, j = 2:3]
+  # spilt power value and unit in two
+  xxx <- strsplit(x[[tmp2]][, j = 2], split = " ", fixed = TRUE)
+  xxx <- do.call(rbind, xxx)
+  x[[tmp2]] <- cbind.data.frame(x[[tmp2]][, j = 1], xxx)
+  x[[tmp2]] <- as.data.frame(x[[tmp2]])
+  names(x[[tmp2]]) <- c("Steckertyp", "Leistung", "Einheit")
+
+  # from description remove information about "Ladestationen"
+  x[[tmp1]] <- x[[tmp1]][seq_len(2)]
+  x[[tmp1]] <- unlist(x[[tmp1]])
+  x[[tmp1]] <- paste0(x[[tmp1]][nzchar(x[[tmp1]])], collapse = "\n")
+
+  x
+}
