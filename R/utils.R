@@ -6,7 +6,7 @@ library(httr2)
 # API patterns ------------------------------------------------------------
 
 # Baustellen:         /{roadId}/services/roadworks
-# Webcams:            /{roadId}/services/webcam
+# Webcams:            /{roadId}/services/webcam       # not supported
 # Rastplätze:         /{roadId}/services/parking_lorry
 # Verkehrsmeldungen:  /{roadId}/services/warning
 # Sperrungen:         /{roadId}/services/closure
@@ -80,6 +80,7 @@ geometryCoordinates <- function(x) {
   x[[idx]] <- do.call(rbind, x[[idx]]) |>
     as.data.frame() |>
     setNames(c("long", "lat"))
+  x[[idx]] <- x[[idx]][, c("lat", "long")]
   x
 }
 
@@ -128,11 +129,11 @@ ladestationDescription <- function(x) {
   # get vector in shape of 3 columns matrix
   x[[tmp2]] <- matrix(data = x[[tmp2]], ncol = 3, byrow = TRUE)
   # remove first column
-  x[[tmp2]] <- x[[tmp2]][, j = 2:3]
+  x[[tmp2]] <- x[[tmp2]][, j = 2:3, drop = FALSE]
   # spilt power value and unit in two
-  xxx <- strsplit(x[[tmp2]][, j = 2], split = " ", fixed = TRUE)
-  xxx <- do.call(rbind, xxx)
-  x[[tmp2]] <- cbind.data.frame(x[[tmp2]][, j = 1], xxx)
+  power_unit <- strsplit(x[[tmp2]][, j = 2], split = " ", fixed = TRUE)
+  power_unit <- do.call(rbind, power_unit)
+  x[[tmp2]] <- cbind.data.frame(x[[tmp2]][, j = 1, drop = FALSE], power_unit)
   x[[tmp2]] <- as.data.frame(x[[tmp2]])
   names(x[[tmp2]]) <- c("Steckertyp", "Leistung", "Einheit")
 

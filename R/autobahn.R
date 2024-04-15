@@ -164,7 +164,6 @@ autobahn_electric_charging_station <- function(roadId = NULL, return = c("as-is"
   if(identical(return, "as-is")) {
     return(json)
   } else {
-    json[] <- lapply(json, geometryCoordinates)
     json[] <- lapply(json, ladestationDescription)
     json[] <- lapply(json, lorryParkingFeatureIcons)
     json[] <- lapply(json, coordinate)
